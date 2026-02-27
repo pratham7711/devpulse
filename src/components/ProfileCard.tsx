@@ -72,6 +72,10 @@ export function ProfileCard({ user }: ProfileCardProps) {
           <img
             src={user.avatar_url}
             alt={user.login}
+            loading="lazy"
+            decoding="async"
+            width={80}
+            height={80}
             style={{
               width: 80,
               height: 80,
