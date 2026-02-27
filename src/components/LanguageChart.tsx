@@ -83,9 +83,9 @@ export function LanguageChart({ stats }: LanguageChartProps) {
         Language Breakdown
       </h3>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
+      <div className="lang-chart-inner">
         {/* Donut */}
-        <div style={{ position: 'relative', width: 180, height: 180, flexShrink: 0 }}>
+        <div className="lang-chart-donut" style={{ position: 'relative', width: 180, height: 180, flexShrink: 0 }}>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie

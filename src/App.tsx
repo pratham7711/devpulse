@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './index.css';
+import './App.css';
 
 import { fetchUser, fetchRepos, fetchEvents } from './api/github';
 import type { GithubUser, Repo, Event } from './types/github';
@@ -24,7 +25,7 @@ const DEFAULT_USER = 'pratham7711';
 function LoadingSkeleton() {
   return (
     <div style={{ padding: '24px 0' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: 24, marginBottom: 24 }}>
+      <div className="skeleton-top-grid">
         <div className="skeleton" style={{ height: 380 }} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div className="skeleton" style={{ height: 100 }} />
@@ -33,7 +34,7 @@ function LoadingSkeleton() {
         </div>
       </div>
       <div className="skeleton" style={{ height: 160, marginBottom: 24 }} />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 14 }}>
+      <div className="skeleton-repos-grid">
         {Array.from({ length: 6 }).map((_, i) => (
           <div key={i} className="skeleton" style={{ height: 130 }} />
         ))}
@@ -162,20 +163,7 @@ export default function App() {
       }}
     >
       {/* Header */}
-      <header
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 100,
-          background: 'rgba(13,17,23,0.85)',
-          backdropFilter: 'blur(12px)',
-          borderBottom: '1px solid var(--border)',
-          padding: '12px 24px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 20,
-        }}
-      >
+      <header className="site-header">
         <motion.div
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
@@ -193,29 +181,19 @@ export default function App() {
               fontWeight: 800,
               fontSize: 14,
               color: '#0D1117',
+              flexShrink: 0,
             }}
           >
             DP
           </div>
-          <span
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontWeight: 700,
-              fontSize: 16,
-              background: 'linear-gradient(90deg, var(--green), var(--blue))',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            DEVPULSE
-          </span>
+          <span className="header-logo-text">DEVPULSE</span>
         </motion.div>
 
         {showDashboard && (
           <motion.div
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
-            style={{ flex: 1, maxWidth: 480 }}
+            style={{ flex: 1, minWidth: 0 }}
           >
             <SearchBar onSearch={handleNewSearch} loading={loading} initialValue={username} />
           </motion.div>
@@ -223,7 +201,7 @@ export default function App() {
       </header>
 
       {/* Main */}
-      <main style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 60px' }}>
+      <main className="main-container">
         <AnimatePresence mode="wait">
           {/* Landing */}
           {!showDashboard && !loading && !error && (
@@ -383,15 +361,7 @@ export default function App() {
               </section>
 
               {/* Profile + Language */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'minmax(0,340px) 1fr',
-                  gap: 20,
-                  marginBottom: 20,
-                  alignItems: 'start',
-                }}
-              >
+              <div className="dashboard-profile-grid">
                 <ProfileCard user={data.user} />
                 <LanguageChart stats={langStats} />
               </div>
@@ -402,14 +372,7 @@ export default function App() {
               </section>
 
               {/* Repos + Activity */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr minmax(0,340px)',
-                  gap: 20,
-                  alignItems: 'start',
-                }}
-              >
+              <div className="dashboard-repos-outer">
                 {/* Repos */}
                 <section>
                   <h3
@@ -422,13 +385,7 @@ export default function App() {
                   >
                     Top Repositories
                   </h3>
-                  <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))',
-                      gap: 12,
-                    }}
-                  >
+                  <div className="dashboard-repos-grid">
                     {reposByStars.slice(0, 6).map((repo, i) => (
                       <RepoCard key={repo.id} repo={repo} index={i} />
                     ))}
