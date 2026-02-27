@@ -1,0 +1,14 @@
+/* App-level overrides */
+#root {
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  /* Stack profile + language on mobile */
+  .dashboard-main-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .dashboard-repos-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
