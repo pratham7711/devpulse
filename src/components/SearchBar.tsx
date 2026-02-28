@@ -13,6 +13,7 @@ const MAX_RECENT = 5;
 export function SearchBar({ onSearch, loading, initialValue = '' }: SearchBarProps) {
   const [value, setValue] = useState(initialValue);
   const [recent, setRecent] = useState<string[]>([]);
+  const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -52,15 +53,14 @@ export function SearchBar({ onSearch, loading, initialValue = '' }: SearchBarPro
             display: 'flex',
             gap: 10,
             background: 'var(--bg-secondary)',
-            border: '1px solid var(--border)',
+            border: `1px solid ${focused ? 'var(--green)' : 'var(--border)'}`,
             borderRadius: 'var(--radius-lg)',
             padding: '6px 6px 6px 16px',
             transition: 'border-color 0.2s, box-shadow 0.2s',
+            boxShadow: focused ? '0 0 0 3px var(--green-muted)' : 'none',
           }}
-          onFocus={() => {
-            (document.activeElement?.parentElement as HTMLElement)?.style &&
-              ((document.activeElement?.parentElement as HTMLElement).style.borderColor = 'var(--green)');
-          }}
+          onFocusCapture={() => setFocused(true)}
+          onBlurCapture={() => setFocused(false)}
         >
           <input
             ref={inputRef}

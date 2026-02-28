@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
+  /* @pratham/ui accent override */
+  --ui-accent: #39D353;
+  --ui-accent-dim: rgba(57,211,83,0.25);
+  --ui-accent-glow: rgba(57,211,83,0.12);
+
   /* Colors */
   --bg-primary: #0D1117;
   --bg-secondary: #161B22;
